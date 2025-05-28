@@ -1,0 +1,6 @@
+@Wdc.Sales.Gateway_HostAddress = http://localhost:5000
+
+GET {{Wdc.Sales.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

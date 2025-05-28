@@ -1,4 +1,4 @@
-namespace Wdc.Sales.Gateway.Api
+namespace Wdc.Sales.Gateway
 {
     public class WeatherForecast
     {
