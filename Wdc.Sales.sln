@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Gateway", "Wdc.Sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Users.Api", "Wdc.Sales.Users.Api\Wdc.Sales.Users.Api.csproj", "{51E858F1-A966-4FE8-80A1-EC2F38024AAB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Orders.Api", "Wdc.Sales.Orders.Api\Wdc.Sales.Orders.Api.csproj", "{E889E71D-1FCF-4906-9C92-399771701CEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{51E858F1-A966-4FE8-80A1-EC2F38024AAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51E858F1-A966-4FE8-80A1-EC2F38024AAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51E858F1-A966-4FE8-80A1-EC2F38024AAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E889E71D-1FCF-4906-9C92-399771701CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E889E71D-1FCF-4906-9C92-399771701CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E889E71D-1FCF-4906-9C92-399771701CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E889E71D-1FCF-4906-9C92-399771701CEF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
