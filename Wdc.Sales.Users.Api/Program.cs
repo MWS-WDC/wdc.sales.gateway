@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Wdc.Sales.Users.Api.Abstracts;
 using Wdc.Sales.Users.Api.Models;
+using Wdc.Sales.Users.Api.Persistence;
 using Wdc.Sales.Users.Api.Services;
 
 namespace Wdc.Sales.Users.Api
@@ -45,6 +46,7 @@ namespace Wdc.Sales.Users.Api
 
             // 🧠 الخدمات الأخرى
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddHostedService<DatabaseMigrationHostedService>();
 
             // 🧭 الإضافات المعتادة
             builder.Services.AddControllers();
