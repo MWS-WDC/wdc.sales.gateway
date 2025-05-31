@@ -13,8 +13,8 @@ namespace Wdc.Sales.Orders.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add JWT auth
-            builder.Services.AddAuthentication("Bearer")
-                .AddJwtBearer("Bearer", options =>
+            builder.Services.AddAuthentication("JwtBearer")
+                .AddJwtBearer("JwtBearer", options =>
                 {
                     options.Authority = "http://localhost:5000"; // ⁄‰Ê«‰ «·‹ Gateway
                     options.RequireHttpsMetadata = false;
@@ -24,9 +24,7 @@ namespace Wdc.Sales.Orders.Api
                     };
                 });
 
-            builder.Services.AddAuthorization();
 
-            // Add DB
             builder.Services.AddDbContext<OrdersDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddHostedService<DatabaseMigrationHostedService>();

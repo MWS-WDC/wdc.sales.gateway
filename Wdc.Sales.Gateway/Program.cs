@@ -1,4 +1,4 @@
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System.Text;
@@ -13,7 +13,6 @@ namespace Wdc.Sales.Gateway
 
             builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-            builder.Services.AddOcelot();
 
             builder.Services.AddAuthentication("JwtBearer")
                 .AddJwtBearer("JwtBearer", options =>
@@ -26,20 +25,21 @@ namespace Wdc.Sales.Gateway
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = builder.Configuration["Jwt:Issuer"],
                         ValidAudience = builder.Configuration["Jwt:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                     };
                 });
 
+            builder.Services.AddAuthorization();
+            builder.Services.AddOcelot();
 
             var app = builder.Build();
+
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
             await app.UseOcelot();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
@@ -51,5 +51,3 @@ namespace Wdc.Sales.Gateway
         }
     }
 }
-
-
