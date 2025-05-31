@@ -7,15 +7,8 @@ using Wdc.Sales.Orders.Api.Models;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class OrdersController : ControllerBase
+public class OrdersController(OrdersDbContext context) : ControllerBase
 {
-    private readonly OrdersDbContext _context;
-
-    public OrdersController(OrdersDbContext context)
-    {
-        _context = context;
-    }
-
     [HttpPost]
     public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
     {
@@ -36,8 +29,8 @@ public class OrdersController : ControllerBase
             }).ToList()
         };
 
-        _context.Orders.Add(order);
-        await _context.SaveChangesAsync();
+        context.Orders.Add(order);
+        await context.SaveChangesAsync();
 
         return Ok(new { order.Id });
     }

@@ -52,7 +52,7 @@
       "UpstreamPathTemplate": "/orders/api/orders/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
+        "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
       }
     }

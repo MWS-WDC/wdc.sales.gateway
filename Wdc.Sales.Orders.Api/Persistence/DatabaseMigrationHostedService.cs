@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Wdc.Sales.Orders.Api.Models;
 
-namespace Wdc.Sales.Users.Api.Persistence;
+namespace Wdc.Sales.Orders.Api.Persistence;
 
 public class DatabaseMigrationHostedService(IServiceProvider serviceProvider) : IHostedService
 {
