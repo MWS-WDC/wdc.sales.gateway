@@ -1,6 +1,2 @@
 @Wdc.Sales.Users.Api_HostAddress = http://localhost:5243
 
-GET {{Wdc.Sales.Users.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

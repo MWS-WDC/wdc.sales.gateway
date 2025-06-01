@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Users.Api", "Wdc.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Orders.Api", "Wdc.Sales.Orders.Api\Wdc.Sales.Orders.Api.csproj", "{E889E71D-1FCF-4906-9C92-399771701CEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Products.Api", "Wdc.Sales.Products.Api\Wdc.Sales.Products.Api.csproj", "{1FAB4D68-BEB3-4474-9139-C5BE37B413C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wdc.Sales.Payments.Api", "Wdc.Sales.Payments.Api\Wdc.Sales.Payments.Api.csproj", "{080401E2-C04A-415F-B210-389D80FBE82B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{E889E71D-1FCF-4906-9C92-399771701CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E889E71D-1FCF-4906-9C92-399771701CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E889E71D-1FCF-4906-9C92-399771701CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FAB4D68-BEB3-4474-9139-C5BE37B413C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FAB4D68-BEB3-4474-9139-C5BE37B413C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FAB4D68-BEB3-4474-9139-C5BE37B413C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FAB4D68-BEB3-4474-9139-C5BE37B413C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{080401E2-C04A-415F-B210-389D80FBE82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{080401E2-C04A-415F-B210-389D80FBE82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{080401E2-C04A-415F-B210-389D80FBE82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{080401E2-C04A-415F-B210-389D80FBE82B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
