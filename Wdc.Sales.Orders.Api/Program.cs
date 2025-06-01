@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Wdc.Sales.Orders.Api.Models;
+using Microsoft.OpenApi.Models;
 using Wdc.Sales.Orders.Api.Persistence;
 
 namespace Wdc.Sales.Orders.Api
@@ -32,12 +32,21 @@ namespace Wdc.Sales.Orders.Api
 
             builder.Services.AddControllers();
 
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+            });
 
             var app = builder.Build();
 
             app.UseSwagger();
-
             app.UseSwaggerUI();
 
             app.UseAuthentication();

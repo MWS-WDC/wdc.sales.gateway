@@ -31,6 +31,7 @@ namespace Wdc.Sales.Users.Api
             })
             .AddJwtBearer("JwtBearer", options =>
             {
+#pragma warning disable CS8604 // Possible null reference argument.
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = true,
@@ -42,6 +43,7 @@ namespace Wdc.Sales.Users.Api
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                 };
+#pragma warning restore CS8604 // Possible null reference argument.
             });
 
             // 🧠 الخدمات الأخرى

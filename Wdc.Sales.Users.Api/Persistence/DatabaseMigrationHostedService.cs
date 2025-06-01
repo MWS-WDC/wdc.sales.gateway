@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Wdc.Sales.Users.Api.Models;
 
 namespace Wdc.Sales.Users.Api.Persistence;
 

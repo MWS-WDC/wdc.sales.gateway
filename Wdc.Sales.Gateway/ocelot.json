@@ -41,6 +41,18 @@
       }
     },
     {
+      "DownstreamPathTemplate": "/api/orders/create",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5175
+        }
+      ],
+      "UpstreamPathTemplate": "/orders/create",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/orders/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -49,14 +61,13 @@
           "Port": 5175
         }
       ],
-      "UpstreamPathTemplate": "/orders/api/orders/{everything}",
+      "UpstreamPathTemplate": "/orders/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
       }
     }
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:5000"

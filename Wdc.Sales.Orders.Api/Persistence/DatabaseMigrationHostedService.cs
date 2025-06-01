@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Wdc.Sales.Orders.Api.Models;
 
 namespace Wdc.Sales.Orders.Api.Persistence;
 

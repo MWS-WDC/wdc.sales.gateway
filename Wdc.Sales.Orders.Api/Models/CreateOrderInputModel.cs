@@ -1,13 +1,13 @@
 ﻿namespace Wdc.Sales.Orders.Api.DTOs
 {
 
-    public class CreateOrderRequest
+    public class CreateOrderInputModel
     {
         public string ShippingAddress { get; set; } = string.Empty;
-        public List<OrderItemDto> Items { get; set; } = [];
+        public List<OrderItemModel> Items { get; set; } = [];
     }
 
-    public class OrderItemDto
+    public class OrderItemModel
     {
         public Guid ProductId { get; set; }
         public int Quantity { get; set; }

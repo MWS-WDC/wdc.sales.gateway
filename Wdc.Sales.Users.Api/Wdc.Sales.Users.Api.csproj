@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a21bc2dc-aa80-44c4-9502-276b336bb4c2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
 </Project>

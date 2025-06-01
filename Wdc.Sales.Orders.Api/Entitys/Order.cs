@@ -6,7 +6,6 @@
         public Guid UserId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string ShippingAddress { get; set; } = string.Empty;
-        public List<OrderItem> Items { get; set; } = [];
+        public ICollection<OrderItem> Items { get; set; } = [];
     }
-
 }

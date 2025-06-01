@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-namespace Wdc.Sales.Orders.Api.Models
+using Wdc.Sales.Orders.Api.Models;
+
+namespace Wdc.Sales.Orders.Api.Persistence
 {
     public class OrdersDbContext : DbContext
     {

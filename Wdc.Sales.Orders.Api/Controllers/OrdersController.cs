@@ -3,16 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Wdc.Sales.Orders.Api.DTOs;
 using Wdc.Sales.Orders.Api.Models;
+using Wdc.Sales.Orders.Api.Persistence;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
 public class OrdersController(OrdersDbContext context) : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderInputModel request)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+
         if (userIdClaim == null)
             return Unauthorized("User ID not found in token.");
 
@@ -30,6 +32,7 @@ public class OrdersController(OrdersDbContext context) : ControllerBase
         };
 
         context.Orders.Add(order);
+
         await context.SaveChangesAsync();
 
         return Ok(new { order.Id });
