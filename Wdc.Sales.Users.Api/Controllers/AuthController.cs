@@ -18,7 +18,7 @@ namespace Wdc.Sales.Users.Api.Controllers
         private readonly ITokenService _tokenService = tokenService;
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterInputModel input)
+        public async Task<ActionResult<AuthModel>> Register(RegisterInputModel input)
         {
             if (await _userManager.FindByEmailAsync(input.Email) is not null)
                 return Problem("Email is already registered!", statusCode: 409);
@@ -41,13 +41,17 @@ namespace Wdc.Sales.Users.Api.Controllers
 
             var token = await _tokenService.CreateToken(user);
 
-            string message = "User registered successfully.";
-
-            return Ok(new { token, user.Id, user.UserName, message });
+            return Ok(new AuthModel()
+            {
+                Id = user.Id,
+                Token = token,
+                Username = user.UserName,
+                Message = "User registered successfully."
+            });
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginInputModel Input)
+        public async Task<ActionResult<AuthModel>> Login(LoginInputModel Input)
         {
             ApplicationUser? user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null) return Unauthorized();
@@ -56,7 +60,12 @@ namespace Wdc.Sales.Users.Api.Controllers
             if (!result.Succeeded) return Unauthorized();
 
             var token = await _tokenService.CreateToken(user);
-            return Ok(new { token, user.Id, user.UserName });
+            return Ok(new AuthModel()
+            {
+                Id = user.Id,
+                Token = token,
+                Username = user.UserName
+            });
         }
     }
 }
