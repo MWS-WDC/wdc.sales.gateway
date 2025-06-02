@@ -9,7 +9,7 @@
 
     public class OrderItemModel
     {
-        public Guid ProductId { get; set; }
+        public string ProductId { get; set; } = string.Empty;
         public int Quantity { get; set; }
     }
 }
