@@ -11,9 +11,6 @@ namespace Wdc.Sales.Users.Api.Models
         [Required, MaxLength(50)]
         public required string LastName { get; init; }
 
-        [Required, MaxLength(100)]
-        public required string Username { get; init; }
-
         [Required, EmailAddress]
         public required string Email { get; init; }
 

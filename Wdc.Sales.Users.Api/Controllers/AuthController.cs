@@ -23,14 +23,11 @@ namespace Wdc.Sales.Users.Api.Controllers
             if (await _userManager.FindByEmailAsync(input.Email) is not null)
                 return Problem("Email is already registered!", statusCode: 409);
 
-            if (await _userManager.FindByNameAsync(input.Username) is not null)
-                return Problem("Username is already registered!", statusCode: 409);
-
             var user = new ApplicationUser
             {
                 FirstName = input.FirstName,
                 LastName = input.LastName,
-                UserName = input.Username,
+                UserName = input.FirstName + " " + input.LastName,
                 Email = input.Email
             };
 
@@ -43,9 +40,7 @@ namespace Wdc.Sales.Users.Api.Controllers
 
             return Ok(new AuthModel()
             {
-                Id = user.Id,
                 Token = token,
-                Username = user.UserName,
                 Message = "User registered successfully."
             });
         }
@@ -62,9 +57,7 @@ namespace Wdc.Sales.Users.Api.Controllers
             var token = await _tokenService.CreateToken(user);
             return Ok(new AuthModel()
             {
-                Id = user.Id,
                 Token = token,
-                Username = user.UserName
             });
         }
     }

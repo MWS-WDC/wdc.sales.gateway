@@ -2,9 +2,7 @@
 {
     public class AuthModel
     {
-        public string Message { get; init; } = string.Empty;
-        public string? Username { get; init; } = string.Empty;
-        public string Id { get; init; } = string.Empty;
+        public string? Message { get; init; } = string.Empty;
         public string Token { get; init; } = string.Empty;
     }
 }
