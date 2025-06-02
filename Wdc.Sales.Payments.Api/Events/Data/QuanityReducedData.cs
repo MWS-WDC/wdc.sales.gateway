@@ -1,4 +1,4 @@
-﻿namespace Wdc.Sales.Products.Api.Events.Data
+﻿namespace Wdc.Sales.Payments.Api.Events.Data
 {
     public class QuantityReducedData
     {

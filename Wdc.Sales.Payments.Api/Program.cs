@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Wdc.Sales.Payments.Api.Persistence;
+using Wdc.Sales.Payments.Api.Persistence.ServiceBus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddHostedService<DatabaseMigrationHostedService>();
+
+builder.Services.AddSingleton<ServiceBusPublisher>();
+
+builder.Services.AddOptions<ServiceBusOptions>()
+    .BindConfiguration(ServiceBusOptions.ServiceBus)
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
 
 builder.Services.AddSwaggerGen(c =>
 {
