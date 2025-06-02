@@ -13,27 +13,27 @@ namespace Wdc.Sales.Orders.Api.Controllers
     public class OrdersController(OrdersDbContext context) : ControllerBase
     {
         [HttpPost("create")]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderInputModel request)
+        public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderInputModel input)
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+            Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
             if (userIdClaim == null)
                 return Unauthorized("User ID not found in token.");
 
-            var userId = Guid.Parse(userIdClaim.Value);
+            Guid userId = Guid.Parse(userIdClaim.Value);
 
             Order order = new()
             {
                 UserId = userId,
-                ShippingAddress = request.ShippingAddress,
-                Items = request.Items.Select(i => new OrderItem
+                ShippingAddress = input.ShippingAddress,
+                Items = input.Items.Select(i => new OrderItem
                 {
                     ProductId = i.ProductId,
                     Quantity = i.Quantity
                 }).ToList(),
             };
 
-            context.Orders.Add(order);
+            await context.Orders.AddAsync(order);
 
             await context.SaveChangesAsync();
 

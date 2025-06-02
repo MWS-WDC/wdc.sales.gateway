@@ -18,7 +18,7 @@ namespace Wdc.Sales.Users.Api.Controllers
         private readonly ITokenService _tokenService = tokenService;
 
         [HttpPost("register")]
-        public async Task<ActionResult<AuthModel>> Register(RegisterInputModel input)
+        public async Task<ActionResult<AuthModel>> RegisterAsync(RegisterInputModel input)
         {
             if (await _userManager.FindByEmailAsync(input.Email) is not null)
                 return Problem("Email is already registered!", statusCode: 409);
@@ -46,7 +46,7 @@ namespace Wdc.Sales.Users.Api.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AuthModel>> Login(LoginInputModel Input)
+        public async Task<ActionResult<AuthModel>> LoginAsync(LoginInputModel Input)
         {
             ApplicationUser? user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null) return Unauthorized();

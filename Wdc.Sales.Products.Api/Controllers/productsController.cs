@@ -11,7 +11,7 @@ using Wdc.Sales.Products.Api.Persistence;
 public class ProductsController(AppDbContext context) : ControllerBase
 {
     [HttpPost("Add")]
-    public async Task<IActionResult> AddProduct([FromBody] AddProductInputModel input, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> AddProductAsync([FromBody] AddProductInputModel input, CancellationToken cancellationToken = default)
     {
         await context.Products.AddAsync(Product.Add(input.Id, input.Quantity, input.Price), cancellationToken);
 
@@ -22,7 +22,7 @@ public class ProductsController(AppDbContext context) : ControllerBase
 
     [AllowAnonymous]
     [HttpGet("get-products")]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts(CancellationToken cancellationToken = default)
+    public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync(CancellationToken cancellationToken = default)
     {
         IEnumerable<Product> products = await context.Products.AsNoTracking().OrderBy(x => x.Id).ToListAsync(cancellationToken);
         return Ok(products);

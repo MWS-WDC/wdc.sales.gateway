@@ -11,7 +11,7 @@ using Wdc.Sales.Payments.Api.Persistence;
 public class WalletController(AppDbContext context) : ControllerBase
 {
     [HttpPost("create-wallet")]
-    public async Task<IActionResult> CreateWallet([FromBody] decimal value, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> CreateWalletAsync([FromBody] decimal value, CancellationToken cancellationToken = default)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
@@ -28,7 +28,7 @@ public class WalletController(AppDbContext context) : ControllerBase
     }
 
     [HttpPost("reduce-balance")]
-    public async Task<IActionResult> ReduceBalanceWallet([FromBody] decimal value, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> ReduceBalanceWalletAsync([FromBody] decimal value, CancellationToken cancellationToken = default)
     {
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
