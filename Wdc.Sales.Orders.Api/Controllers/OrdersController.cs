@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Wdc.Sales.Orders.Api.Entitys;
 using Wdc.Sales.Orders.Api.Enums;
-using Wdc.Sales.Orders.Api.Events;
-using Wdc.Sales.Orders.Api.Messaging;
 using Wdc.Sales.Orders.Api.Models;
 using Wdc.Sales.Orders.Api.Persistence;
 
@@ -14,7 +12,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class OrdersController(OrdersDbContext context, IOrderEventPublisher eventPublisher) : ControllerBase
+    public class OrdersController(OrdersDbContext context) : ControllerBase
     {
         [HttpPost("create")]
         public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderInputModel input)
@@ -67,14 +65,6 @@ namespace Wdc.Sales.Orders.Api.Controllers
 
             order.Status = OrderStatus.Cancelled;
             await context.SaveChangesAsync();
-
-            var orderEvent = new OrderCancelledEvent
-            {
-                OrderId = order.Id,
-                UserId = order.UserId
-            };
-
-            await eventPublisher.PublishOrderCancelledAsync(orderEvent);
 
             return Ok(new { message = "Order cancelled." });
         }
