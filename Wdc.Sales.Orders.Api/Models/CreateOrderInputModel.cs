@@ -1,4 +1,4 @@
-﻿namespace Wdc.Sales.Orders.Api.DTOs
+﻿namespace Wdc.Sales.Orders.Api.Models
 {
 
     public class CreateOrderInputModel

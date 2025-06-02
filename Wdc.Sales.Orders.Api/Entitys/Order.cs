@@ -1,4 +1,4 @@
-﻿namespace Wdc.Sales.Orders.Api.Models
+﻿namespace Wdc.Sales.Orders.Api.Entitys
 {
     public class Order
     {
