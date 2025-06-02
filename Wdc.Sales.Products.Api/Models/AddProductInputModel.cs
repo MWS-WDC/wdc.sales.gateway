@@ -1,4 +1,4 @@
-﻿namespace Wdc.Sales.Orders.Api.Models
+﻿namespace Wdc.Sales.Products.Api.Models
 {
 
     public class AddProductInputModel

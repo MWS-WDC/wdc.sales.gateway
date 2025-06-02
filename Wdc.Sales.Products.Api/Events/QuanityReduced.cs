@@ -1,7 +1,6 @@
-﻿using Anis.TransactionsDateManagement.Queries.Domain.Events.Data;
-using Wdc.Sales.Products.Api.Events;
+﻿using Wdc.Sales.Products.Api.Events.Data;
 
-namespace Anis.TransactionsDateManagement.Queries.Domain.Events
+namespace Wdc.Sales.Products.Api.Events
 {
     public class QuantityReduced : Event<QuantityReducedData>
     {

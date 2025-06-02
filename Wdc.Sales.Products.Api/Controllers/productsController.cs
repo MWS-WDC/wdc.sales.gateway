@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Wdc.Sales.Orders.Api.Models;
 using Wdc.Sales.Products.Api.Entities;
+using Wdc.Sales.Products.Api.Models;
 using Wdc.Sales.Products.Api.Persistence;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class productsController(AppDbContext context) : ControllerBase
+public class ProductsController(AppDbContext context) : ControllerBase
 {
     [HttpPost("Add")]
     public async Task<IActionResult> AddProduct([FromBody] AddProductInputModel input, CancellationToken cancellationToken = default)

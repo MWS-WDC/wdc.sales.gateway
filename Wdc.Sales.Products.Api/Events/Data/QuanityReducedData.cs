@@ -1,4 +1,4 @@
-﻿namespace Anis.TransactionsDateManagement.Queries.Domain.Events.Data
+﻿namespace Wdc.Sales.Products.Api.Events.Data
 {
     public class QuantityReducedData
     {
