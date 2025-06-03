@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Json;
+using Wdc.Sales.Products.Api.Events;
 
 namespace Wdc.Sales.Products.Api.Persistence.ServiceBus
 {
