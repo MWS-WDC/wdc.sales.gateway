@@ -107,7 +107,7 @@ namespace Wdc.Sales.Products.Api.Persistence.ServiceBus
             using IServiceScope scope = _serviceProvider.CreateScope();
             IMediator mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            Event @event = JsonDocument.Parse(message).ToEvent(subject, _logger);
+            Event @event = JsonDocument.Parse(message).ToEvent(subject, _logger);//todo review
             return await mediator.Send(@event);
         }
 
