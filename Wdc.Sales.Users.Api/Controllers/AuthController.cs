@@ -27,7 +27,7 @@ namespace Wdc.Sales.Users.Api.Controllers
             {
                 FirstName = input.FirstName,
                 LastName = input.LastName,
-                UserName = input.FirstName + " " + input.LastName,
+                UserName = input.Email,
                 Email = input.Email
             };
 
