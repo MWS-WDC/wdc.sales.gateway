@@ -69,5 +69,38 @@ namespace Wdc.Sales.Orders.Api.Controllers
             return Ok(new { message = "Order cancelled." });
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllOrdersAsync()
+        {
+            Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+
+            if (userIdClaim == null)
+                return Unauthorized("User ID not found in token.");
+
+            string userId = userIdClaim.Value;
+
+            var orders = await context.Orders
+                .Include(o => o.Items)
+                .Where(o => o.UserId == userId)
+                .OrderByDescending(o => o.CreatedAt)
+                .ToListAsync();
+
+            var result = orders.Select(o => new
+            {
+                o.Id,
+                o.Status,
+                o.CreatedAt,
+                o.ShippingAddress,
+                Items = o.Items.Select(i => new
+                {
+                    i.ProductId,
+                    i.Quantity
+                })
+            });
+
+            return Ok(result);
+        }
+
+
     }
 }
