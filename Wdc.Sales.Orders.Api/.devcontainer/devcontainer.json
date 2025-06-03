@@ -1,0 +1,10 @@
+{
+  "name": "Orders Service",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "orders",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:1": {}
+  },
+  "postCreateCommand": "dotnet restore"
+}

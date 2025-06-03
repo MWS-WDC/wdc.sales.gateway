@@ -45,12 +45,19 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5175
+          "Host": "orders1",
+          "Port": 80
+        },
+        {
+          "Host": "orders2",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/orders/create",
       "UpstreamHttpMethod": [ "POST" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
@@ -61,12 +68,19 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 5175
+          "Host": "orders1",
+          "Port": 80
+        },
+        {
+          "Host": "orders2",
+          "Port": 80
         }
       ],
       "UpstreamPathTemplate": "/orders/{orderId}/cancel",
       "UpstreamHttpMethod": [ "POST" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
