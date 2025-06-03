@@ -1,9 +1,9 @@
 ﻿version: '3.8'
 
 services:
-  orders:
+  orders1:
     build:
-      context: .
+      context: ./wdc.sales.orders
       dockerfile: Dockerfile
     ports:
       - "5005:80"
@@ -15,6 +15,31 @@ services:
       - Jwt__Audience=WdcSalesUsers
     depends_on:
       - sqlserver
+
+  orders2:
+    build:
+      context: ./wdc.sales.orders
+      dockerfile: Dockerfile
+    ports:
+      - "5006:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=OrdersDb;User Id=sa;Password=YourStrong!Passw0rd;
+      - Jwt__Key=ThisIsAStrongSecretKeyWithMoreThan32Chars!!
+      - Jwt__Issuer=WdcSales
+      - Jwt__Audience=WdcSalesUsers
+    depends_on:
+      - sqlserver
+
+  gateway:
+    build:
+      context: ./wdc.sales.gateway
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      - orders1
+      - orders2
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
