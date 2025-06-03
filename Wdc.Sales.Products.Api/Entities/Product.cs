@@ -30,5 +30,11 @@
             price: price,
             sequence: 1
         );
+
+        public void UpdateQuantity(long quantiy, int sequence)
+        {
+            Quantity -= quantiy;
+            Sequence = sequence;
+        }
     }
 }
