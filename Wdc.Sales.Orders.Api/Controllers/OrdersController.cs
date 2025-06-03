@@ -27,7 +27,6 @@ namespace Wdc.Sales.Orders.Api.Controllers
             Order order = new()
             {
                 UserId = userId,
-                ShippingAddress = input.ShippingAddress,
                 Items = input.Items.Select(i => new OrderItem
                 {
                     ProductId = i.ProductId,
@@ -90,7 +89,6 @@ namespace Wdc.Sales.Orders.Api.Controllers
                 o.Id,
                 o.Status,
                 o.CreatedAt,
-                o.ShippingAddress,
                 Items = o.Items.Select(i => new
                 {
                     i.ProductId,

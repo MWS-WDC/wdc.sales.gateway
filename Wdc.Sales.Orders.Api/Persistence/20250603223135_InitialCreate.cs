@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Wdc.Sales.Orders.Api.Persistance
+namespace Wdc.Sales.Orders.Api.Persistence
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -18,7 +18,6 @@ namespace Wdc.Sales.Orders.Api.Persistance
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ShippingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

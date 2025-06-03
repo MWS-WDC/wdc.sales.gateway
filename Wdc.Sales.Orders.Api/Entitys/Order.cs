@@ -7,7 +7,6 @@ namespace Wdc.Sales.Orders.Api.Entitys
         public string Id { get; set; } = Guid.NewGuid().ToString();
         public string UserId { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public string ShippingAddress { get; set; } = string.Empty;
         public ICollection<OrderItem> Items { get; set; } = [];
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
     }
