@@ -107,8 +107,13 @@ namespace Wdc.Sales.Products.Api.Persistence.ServiceBus
             using IServiceScope scope = _serviceProvider.CreateScope();
             IMediator mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
-            Event @event = JsonDocument.Parse(message).ToEvent(subject, _logger);//todo review
-            return await mediator.Send(@event);
+            var isHandled = subject switch
+            {
+                nameof(QuantityReduced) => await mediator.Send(Deserialize<QuantityReduced>(message)),
+                _ => true,
+            };
+
+            return isHandled;
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
@@ -124,5 +129,9 @@ namespace Wdc.Sales.Products.Api.Persistence.ServiceBus
             if (_environment.IsProduction())
                 await _deadLetterProcessor.CloseAsync(cancellationToken);
         }
+
+        private static T Deserialize<T>(string json)
+            => JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+            ?? throw new InvalidOperationException("Failed to deserialize message");
     }
 }
