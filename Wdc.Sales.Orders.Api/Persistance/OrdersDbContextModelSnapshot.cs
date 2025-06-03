@@ -8,7 +8,7 @@ using Wdc.Sales.Orders.Api.Persistence;
 
 #nullable disable
 
-namespace Wdc.Sales.Orders.Api.Persistence
+namespace Wdc.Sales.Orders.Api.Persistance
 {
     [DbContext(typeof(OrdersDbContext))]
     partial class OrdersDbContextModelSnapshot : ModelSnapshot

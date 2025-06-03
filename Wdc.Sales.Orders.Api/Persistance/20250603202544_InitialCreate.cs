@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Wdc.Sales.Orders.Api.Persistence
+namespace Wdc.Sales.Orders.Api.Persistance
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -16,11 +16,7 @@ namespace Wdc.Sales.Orders.Api.Persistence
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-<<<<<<<< HEAD:Wdc.Sales.Orders.Api/Persistence/20250603192325_InitialCreate.cs
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-========
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
->>>>>>>> ad68230941517260077e96d409e97bc1228185c2:Wdc.Sales.Orders.Api/Persistence/20250603184552_InitOrder.cs
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ShippingAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false)
@@ -34,11 +30,7 @@ namespace Wdc.Sales.Orders.Api.Persistence
                 name: "OrderItems",
                 columns: table => new
                 {
-<<<<<<<< HEAD:Wdc.Sales.Orders.Api/Persistence/20250603192325_InitialCreate.cs
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-========
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
->>>>>>>> ad68230941517260077e96d409e97bc1228185c2:Wdc.Sales.Orders.Api/Persistence/20250603184552_InitOrder.cs
                     ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false)

@@ -9,16 +9,11 @@ using Wdc.Sales.Orders.Api.Persistence;
 
 #nullable disable
 
-namespace Wdc.Sales.Orders.Api.Persistence
+namespace Wdc.Sales.Orders.Api.Persistance
 {
     [DbContext(typeof(OrdersDbContext))]
-<<<<<<<< HEAD:Wdc.Sales.Orders.Api/Persistence/20250603192325_InitialCreate.Designer.cs
-    [Migration("20250603192325_InitialCreate")]
+    [Migration("20250603202544_InitialCreate")]
     partial class InitialCreate
-========
-    [Migration("20250603184552_InitOrder")]
-    partial class InitOrder
->>>>>>>> ad68230941517260077e96d409e97bc1228185c2:Wdc.Sales.Orders.Api/Persistence/20250603184552_InitOrder.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,14 +40,9 @@ namespace Wdc.Sales.Orders.Api.Persistence
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-<<<<<<<< HEAD:Wdc.Sales.Orders.Api/Persistence/20250603192325_InitialCreate.Designer.cs
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-========
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
->>>>>>>> ad68230941517260077e96d409e97bc1228185c2:Wdc.Sales.Orders.Api/Persistence/20250603184552_InitOrder.Designer.cs
 
                     b.HasKey("Id");
 
