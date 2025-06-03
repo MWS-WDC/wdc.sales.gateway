@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System.Text;
@@ -11,7 +12,13 @@ namespace Wdc.Sales.Gateway
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+            builder.Configuration
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables()
+                .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+
 
 
             builder.Services.AddAuthentication("JwtBearer")
@@ -27,13 +34,27 @@ namespace Wdc.Sales.Gateway
                         ValidAudience = builder.Configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                     };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine("Authentication failed: " + context.Exception.Message);
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = context =>
+                        {
+                            Console.WriteLine("Token validated.");
+                            return Task.CompletedTask;
+                        }
+                    };
+
                 });
 
             builder.Services.AddAuthorization();
             builder.Services.AddOcelot();
 
             var app = builder.Build();
-
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
@@ -44,8 +65,6 @@ namespace Wdc.Sales.Gateway
             {
                 app.MapOpenApi();
             }
-
-            app.UseHttpsRedirection();
 
             app.Run();
         }

@@ -12,8 +12,8 @@ using Wdc.Sales.Users.Api.Persistence;
 namespace Wdc.Sales.Users.Api.Persistence.Migrations
 {
     [DbContext(typeof(UsersDbContext))]
-    [Migration("20250601181756_InitUser")]
-    partial class InitUser
+    [Migration("20250602220135_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

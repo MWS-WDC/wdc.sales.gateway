@@ -22,7 +22,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
             if (userIdClaim == null)
                 return Unauthorized("User ID not found in token.");
 
-            Guid userId = Guid.Parse(userIdClaim.Value);
+            string userId = userIdClaim.Value;
 
             Order order = new()
             {
@@ -51,7 +51,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
             if (userIdClaim == null)
                 return Unauthorized("User ID not found in token.");
 
-            Guid userId = Guid.Parse(userIdClaim.Value);
+            string userId = userIdClaim.Value;
 
             var order = await context.Orders
                 .Include(o => o.Items)

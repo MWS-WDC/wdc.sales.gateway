@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wdc.Sales.Orders.Api.Persistence;
 
 #nullable disable
 
-namespace Wdc.Sales.Orders.Api.Persistence.Migrations
+namespace Wdc.Sales.Orders.Api.Persistence
 {
     [DbContext(typeof(OrdersDbContext))]
-    [Migration("20250601184021_InitOrder")]
-    partial class InitOrder
+    partial class OrdersDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,11 +22,10 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.Order", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.Order", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -38,25 +34,30 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.OrderItem", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.OrderItem", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -68,9 +69,9 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.OrderItem", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.OrderItem", b =>
                 {
-                    b.HasOne("Wdc.Sales.Orders.Api.Models.Order", "Order")
+                    b.HasOne("Wdc.Sales.Orders.Api.Entitys.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -79,7 +80,7 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.Order", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.Order", b =>
                 {
                     b.Navigation("Items");
                 });

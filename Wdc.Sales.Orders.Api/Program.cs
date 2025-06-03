@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using Wdc.Sales.Orders.Api.Persistence;
 
 namespace Wdc.Sales.Orders.Api
@@ -12,19 +14,23 @@ namespace Wdc.Sales.Orders.Api
 
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add JWT auth
-            builder.Services.AddAuthentication("JwtBearer")
-                .AddJwtBearer("JwtBearer", options =>
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    options.Authority = "http://localhost:5000"; // ⁄‰Ê«‰ «·‹ Gateway
-                    options.RequireHttpsMetadata = false;
+                    var config = builder.Configuration;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateAudience = false
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = config["Jwt:Issuer"],
+                        ValidAudience = config["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"]))
                     };
                 });
 
-
+            builder.Services.AddAuthorization();
             builder.Services.AddDbContext<OrdersDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
