@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Wdc.Sales.Products.Api.EventHandlers;
 using Wdc.Sales.Products.Api.Persistence;
+using Wdc.Sales.Products.Api.Persistence.ServiceBus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,9 @@ builder.Services.AddAuthentication("JwtBearer")
         };
     });
 
+builder.Services.AddServiceBus(builder.Configuration);
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<QuantityReducedHandler>());
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
