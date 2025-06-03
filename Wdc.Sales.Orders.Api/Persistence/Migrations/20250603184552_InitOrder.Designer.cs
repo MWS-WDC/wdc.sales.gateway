@@ -12,7 +12,7 @@ using Wdc.Sales.Orders.Api.Persistence;
 namespace Wdc.Sales.Orders.Api.Persistence.Migrations
 {
     [DbContext(typeof(OrdersDbContext))]
-    [Migration("20250601184021_InitOrder")]
+    [Migration("20250603184552_InitOrder")]
     partial class InitOrder
     {
         /// <inheritdoc />
@@ -25,11 +25,10 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.Order", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.Order", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -37,6 +36,9 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                     b.Property<string>("ShippingAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -46,17 +48,19 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.OrderItem", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.OrderItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -68,9 +72,9 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.OrderItem", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.OrderItem", b =>
                 {
-                    b.HasOne("Wdc.Sales.Orders.Api.Models.Order", "Order")
+                    b.HasOne("Wdc.Sales.Orders.Api.Entitys.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -79,7 +83,7 @@ namespace Wdc.Sales.Orders.Api.Persistence.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Wdc.Sales.Orders.Api.Models.Order", b =>
+            modelBuilder.Entity("Wdc.Sales.Orders.Api.Entitys.Order", b =>
                 {
                     b.Navigation("Items");
                 });
