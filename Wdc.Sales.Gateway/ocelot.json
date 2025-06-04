@@ -140,7 +140,11 @@
         }
       ],
       "UpstreamPathTemplate": "/wallet/create-wallet",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "JwtBearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/wallet/reduce-balance",
@@ -152,19 +156,7 @@
         }
       ],
       "UpstreamPathTemplate": "/wallet/reduce-balance",
-      "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/wallet/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5089
-        }
-      ],
-      "UpstreamPathTemplate": "/wallet/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UpstreamHttpMethod": [ "Post" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
