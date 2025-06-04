@@ -112,7 +112,11 @@
         }
       ],
       "UpstreamPathTemplate": "/products/Add",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "JwtBearer",
+        "AllowedScopes": []
+      }
     },
     {
       "DownstreamPathTemplate": "/api/products/get-products",
@@ -125,22 +129,6 @@
       ],
       "UpstreamPathTemplate": "/products/get-products",
       "UpstreamHttpMethod": [ "GET" ]
-    },
-    {
-      "DownstreamPathTemplate": "/api/products/{everything}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5158
-        }
-      ],
-      "UpstreamPathTemplate": "/products/{everything}",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "JwtBearer",
-        "AllowedScopes": []
-      }
     },
     {
       "DownstreamPathTemplate": "/api/wallet/create-wallet",
