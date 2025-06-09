@@ -45,12 +45,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "orders1",
-          "Port": 80
-        },
-        {
-          "Host": "orders2",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5175
         }
       ],
       "UpstreamPathTemplate": "/orders/create",
@@ -68,12 +64,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "orders1",
-          "Port": 80
-        },
-        {
-          "Host": "orders2",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5175
         }
       ],
       "UpstreamPathTemplate": "/orders/{orderId}/cancel",
