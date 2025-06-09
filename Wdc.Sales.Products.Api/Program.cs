@@ -34,6 +34,8 @@ builder.Services.AddServiceBus(builder.Configuration);
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<QuantityReducedHandler>());
 
+builder.Services.AddAuthorization();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
