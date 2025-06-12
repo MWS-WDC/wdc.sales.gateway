@@ -10,14 +10,18 @@ public class QuantityReducedHandler(AppDbContext context) : IRequestHandler<Quan
 {
     public async Task<bool> Handle(QuantityReduced @event, CancellationToken cancellationToken)
     {
-        Product? product = await context.Products.FirstOrDefaultAsync(x => x.Id == @event.AggregateId, cancellationToken);
+        List<Product> products = await context.Products.ToListAsync(cancellationToken);
+
+        Product? product = products.SingleOrDefault(x => x.Id == @event.AggregateId);
 
         if (product is null || product.Sequence + 1 < @event.Sequence)
             return false;
 
         if (product.Sequence + 1 > @event.Sequence) return true;
 
-        product.UpdateQuantity(@event.Data.Quantity, @event.Sequence);
+        product.UpdateQuantity(@event.Data.Quantity);
+
+        products.ForEach(p => p.UpdateSequence(@event.Sequence));
 
         await context.SaveChangesAsync(cancellationToken);
 

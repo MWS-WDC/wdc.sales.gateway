@@ -31,10 +31,9 @@
             sequence: 1
         );
 
-        public void UpdateQuantity(long quantiy, int sequence)
-        {
-            Quantity -= quantiy;
-            Sequence = sequence;
-        }
+        public void UpdateQuantity(long quantiy) => Quantity -= quantiy;
+
+        public void UpdateSequence(int sequence)
+            => Sequence = sequence;
     }
 }
