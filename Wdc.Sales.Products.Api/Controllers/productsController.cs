@@ -15,7 +15,7 @@ namespace Wdc.Sales.Products.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> AddProductAsync([FromBody] AddProductInputModel input, CancellationToken cancellationToken = default)
         {
-            Product? product = await context.Products.SingleOrDefaultAsync(x => x.Id == input.Id);
+            Product? product = await context.Products.AsNoTracking().SingleOrDefaultAsync(x => x.Id == input.Id);
             if (product is not null)
             {
                 return Problem(detail: "already exists", statusCode: 409);
