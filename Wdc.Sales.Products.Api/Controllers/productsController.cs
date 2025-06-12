@@ -15,13 +15,13 @@ namespace Wdc.Sales.Products.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> AddProductAsync([FromBody] AddProductInputModel input, CancellationToken cancellationToken = default)
         {
-            Product? product = await context.Products.AsNoTracking().SingleOrDefaultAsync(x => x.Id == input.Id);
+            Product? product = await context.Products.AsNoTracking().SingleOrDefaultAsync(x => x.Id == input.ProductId);
             if (product is not null)
             {
                 return Problem(detail: "already exists", statusCode: 409);
             }
 
-            await context.Products.AddAsync(Product.Add(input.Id, input.Quantity, input.Price), cancellationToken);
+            await context.Products.AddAsync(Product.Add(input.ProductId, input.Quantity, input.Price), cancellationToken);
 
             await context.SaveChangesAsync(cancellationToken);
 

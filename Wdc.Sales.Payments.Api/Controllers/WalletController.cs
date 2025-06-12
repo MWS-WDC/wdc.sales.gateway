@@ -14,27 +14,38 @@ namespace Wdc.Sales.Payments.Api.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class WalletController(AppDbContext context, ServiceBusPublisher serviceBusPublisher) : ControllerBase
+    public class WalletController(
+        AppDbContext context,
+        ServiceBusPublisher serviceBusPublisher
+    ) : ControllerBase
     {
         [HttpPost("create-wallet")]
-        public async Task<IActionResult> CreateWalletAsync([FromBody] decimal value, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> CreateWalletAsync(
+            [FromBody] CreateWalletInput input,
+            CancellationToken cancellationToken = default
+        )
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
+            Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
             if (userIdClaim == null)
                 return Unauthorized("User ID not found in token.");
 
-            var userId = Guid.Parse(userIdClaim.Value);
+            Guid userId = Guid.Parse(userIdClaim.Value);
 
-            await context.Wallets.AddAsync(Wallet.Create(userId, value), cancellationToken);
+            Wallet wallet = Wallet.Create(userId, input.Value);
+
+            await context.Wallets.AddAsync(wallet, cancellationToken);
 
             await context.SaveChangesAsync(cancellationToken);
 
-            return Ok("Create Wallet successfully.");
+            return Ok("Create Wallet successfully");
         }
 
         [HttpPost("reduce-balance")]
-        public async Task<IActionResult> ReduceBalanceWalletAsync([FromBody] ReduceBalanceWalletInput input, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> ReduceBalanceWalletAsync(
+            [FromBody] ReduceBalanceWalletInput input,
+            CancellationToken cancellationToken = default
+        )
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
@@ -45,15 +56,15 @@ namespace Wdc.Sales.Payments.Api.Controllers
 
             Wallet? wallet = await context.Wallets.Where(x => x.OwnerId == userId).FirstOrDefaultAsync(cancellationToken);
 
-            wallet?.ReduceBalance(input.Value * input.Quantity);
+            wallet?.ReduceBalance(input.ReduceBalanceWallets.Sum(x => x.Value * x.Quantity));
 
             await context.SaveChangesAsync(cancellationToken);
-
+            ReduceBalanceWallet? reduceBalanceWallet = input.ReduceBalanceWallets.FirstOrDefault();
             await serviceBusPublisher.PublishEventAsync(new QuantityReduced
             {
-                AggregateId = input.ProductId,
+                AggregateId = reduceBalanceWallet?.ProductId ?? "Apple",
                 Sequence = wallet is null ? 0 : wallet.Sequence,
-                Data = new QuantityReducedData { Quantity = input.Quantity },
+                Data = new QuantityReducedData { Quantity = reduceBalanceWallet?.Quantity ?? 0 },
                 DateTime = DateTime.UtcNow,
                 UserId = userId.ToString(),
                 Version = 1

@@ -1,10 +1,9 @@
 ﻿namespace Wdc.Sales.Products.Api.Models
 {
-
     public class AddProductInputModel
     {
-        public required string Id { get; init; }
-        public required long Quantity { get; init; }
-        public required decimal Price { get; init; }
+        public string ProductId { get; set; } = string.Empty;
+        public long Quantity { get; set; }
+        public decimal Price { get; set; }
     }
 }
