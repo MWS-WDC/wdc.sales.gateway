@@ -32,7 +32,7 @@ namespace Wdc.Sales.Payments.Api.Controllers
 
             Guid userId = Guid.Parse(userIdClaim.Value);
 
-            Wallet wallet = Wallet.Create(userId, input.Value);
+            Wallet wallet = Wallet.Create(userId, input.Value, " ");
 
             await context.Wallets.AddAsync(wallet, cancellationToken);
 
@@ -55,14 +55,20 @@ namespace Wdc.Sales.Payments.Api.Controllers
             var userId = Guid.Parse(userIdClaim.Value);
 
             Wallet? wallet = await context.Wallets.Where(x => x.OwnerId == userId).FirstOrDefaultAsync(cancellationToken);
-
-            wallet?.ReduceBalance(input.ReduceBalanceWallets.Sum(x => x.Value * x.Quantity));
-
+            if (wallet is null)
+            {
+                wallet = Wallet.Create(userId, 10000000, input.LocationName);
+                await context.Wallets.AddAsync(wallet, cancellationToken);
+            }
+            else
+            {
+                wallet.ReduceBalance(input.ReduceBalanceWallets.Sum(x => x.Value * x.Quantity), input.LocationName);
+            }
             await context.SaveChangesAsync(cancellationToken);
             ReduceBalanceWallet? reduceBalanceWallet = input.ReduceBalanceWallets.FirstOrDefault();
             await serviceBusPublisher.PublishEventAsync(new QuantityReduced
             {
-                AggregateId = reduceBalanceWallet?.ProductId ?? "Apple",
+                AggregateId = reduceBalanceWallet?.ProductId ?? "apple",
                 Sequence = wallet is null ? 0 : wallet.Sequence,
                 Data = new QuantityReducedData { Quantity = reduceBalanceWallet?.Quantity ?? 0 },
                 DateTime = DateTime.UtcNow,

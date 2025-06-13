@@ -16,6 +16,7 @@ namespace Wdc.Sales.Products.Api.Controllers
         public async Task<IActionResult> AddProductAsync([FromBody] AddProductInputModel input, CancellationToken cancellationToken = default)
         {
             Product? product = await context.Products.AsNoTracking().SingleOrDefaultAsync(x => x.Id == input.ProductId);
+
             if (product is not null)
             {
                 return Problem(detail: "already exists", statusCode: 409);
@@ -32,7 +33,21 @@ namespace Wdc.Sales.Products.Api.Controllers
         [HttpGet("get-products")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAsync(CancellationToken cancellationToken = default)
         {
-            IEnumerable<Product> products = await context.Products.AsNoTracking().OrderBy(x => x.Id).ToListAsync(cancellationToken);
+            List<Product> products = await context.Products.AsNoTracking().OrderBy(x => x.Id).ToListAsync(cancellationToken);
+
+            if (products.Count() < 0)
+            {
+                products.Add(Product.Add(id: "apple", price: 100, quantity: 10));
+
+                products.Add(Product.Add(id: "banana", price: 100, quantity: 10));
+
+                products.Add(Product.Add(id: "strawberry", price: 100, quantity: 10));
+            }
+
+            await context.Products.AddRangeAsync(products);
+
+            await context.SaveChangesAsync(cancellationToken);
+
             return Ok(products);
         }
     }

@@ -2,6 +2,7 @@
 {
     public class ReduceBalanceWalletInput
     {
+        public required string LocationName { get; init; }
         public List<ReduceBalanceWallet> ReduceBalanceWallets { get; init; } = [];
     }
 
