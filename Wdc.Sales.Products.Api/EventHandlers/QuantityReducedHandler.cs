@@ -14,10 +14,10 @@ public class QuantityReducedHandler(AppDbContext context) : IRequestHandler<Quan
 
         Product? product = products.SingleOrDefault(x => x.Id == @event.AggregateId);
 
-        if (product is null || product.Sequence + 1 < @event.Sequence)
-            return false;
+        if (product is null || product.Sequence + 1 > @event.Sequence) return true;
 
-        if (product.Sequence + 1 > @event.Sequence) return true;
+        if (product.Sequence + 1 < @event.Sequence)
+            return false;
 
         product.UpdateQuantity(@event.Data.Quantity);
 

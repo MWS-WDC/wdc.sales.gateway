@@ -15,7 +15,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
     public class OrdersController(OrdersDbContext context) : ControllerBase
     {
         [HttpPost("create")]
-        public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderInputModel input)
+        public async Task<ActionResult<CreateOrderOutPutModel>> CreateOrderAsync([FromBody] CreateOrderInputModel input)
         {
             Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
@@ -40,7 +40,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
 
             await context.SaveChangesAsync();
 
-            return Ok(new { order.Id });
+            return Ok(new CreateOrderOutPutModel { Id = order.Id });
         }
 
         [HttpPost("{orderId}/cancel")]
@@ -69,7 +69,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllOrdersAsync()
+        public async Task<ActionResult<GetAllOrdersOutput>> GetAllOrdersAsync()
         {
             Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
@@ -84,21 +84,18 @@ namespace Wdc.Sales.Orders.Api.Controllers
                 .OrderByDescending(o => o.CreatedAt)
                 .ToListAsync();
 
-            var result = orders.Select(o => new
+            GetAllOrdersOutput result = new GetAllOrdersOutput
             {
-                o.Id,
-                o.Status,
-                o.CreatedAt,
-                Items = o.Items.Select(i => new
+                getAllOrderOutPutModels = orders.Select(o => new GetAllOrderOutPutModel
                 {
-                    i.ProductId,
-                    i.Quantity
+                    OrderId = o.Id,
+                    CreatedAt = o.CreatedAt,
+                    Status = nameof(o.Status),
+                    orderItemOutPutModels = o.Items.Select(x => new OrderItemOutPutModel { ProductId = x.ProductId, Quantity = x.Quantity })
                 })
-            });
+            };
 
             return Ok(result);
         }
-
-
     }
 }

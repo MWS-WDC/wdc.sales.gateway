@@ -5,4 +5,9 @@
     {
         public List<OrderItemModel> Items { get; set; } = [];
     }
+
+    public class CreateOrderOutPutModel
+    {
+        public required string Id { get; init; }
+    }
 }
