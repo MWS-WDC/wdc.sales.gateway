@@ -19,7 +19,19 @@ namespace Wdc.Sales.Gateway
                 .AddEnvironmentVariables()
                 .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-
+            // إضافة خدمات CORS
+            builder.Services.AddCors(options =>
+            {
+                // نصيحة: تجنب استخدام AllowAnyOrigin() في بيئة الإنتاج قدر الإمكان.
+                // إذا كنت مضطرًا لذلك مؤقتًا للاختبار، يمكنك تعريف سياسة أخرى:
+                options.AddPolicy(name: "AllowAllOrigins",
+                                  policy =>
+                                  {
+                                      policy.AllowAnyOrigin()
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                                  });
+            });
 
             builder.Services.AddAuthentication("JwtBearer")
                 .AddJwtBearer("JwtBearer", options =>
@@ -55,7 +67,11 @@ namespace Wdc.Sales.Gateway
             builder.Services.AddOcelot();
 
             var app = builder.Build();
+
+            app.UseCors("AllowAllOrigins");
+
             app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthentication();
