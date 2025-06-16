@@ -7,10 +7,17 @@
         {
           "Host": "localhost",
           "Port": 5243
+        },
+        {
+          "Host": "localhost",
+          "Port": 5244
         }
       ],
       "UpstreamPathTemplate": "/users/register",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/auth/login",
@@ -19,10 +26,17 @@
         {
           "Host": "localhost",
           "Port": 5243
+        },
+        {
+          "Host": "localhost",
+          "Port": 5244
         }
       ],
       "UpstreamPathTemplate": "/users/login",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/auth/profile",
@@ -31,6 +45,10 @@
         {
           "Host": "localhost",
           "Port": 5243
+        },
+        {
+          "Host": "localhost",
+          "Port": 5244
         }
       ],
       "UpstreamPathTemplate": "/users/profile",
@@ -38,6 +56,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
@@ -47,16 +68,20 @@
         {
           "Host": "localhost",
           "Port": 5175
+        },
+        {
+          "Host": "localhost",
+          "Port": 5176
         }
       ],
       "UpstreamPathTemplate": "/orders/create",
       "UpstreamHttpMethod": [ "POST" ],
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
@@ -66,16 +91,20 @@
         {
           "Host": "localhost",
           "Port": 5175
+        },
+        {
+          "Host": "localhost",
+          "Port": 5176
         }
       ],
       "UpstreamPathTemplate": "/orders/{orderId}/cancel",
       "UpstreamHttpMethod": [ "POST" ],
-      "LoadBalancerOptions": {
-        "Type": "RoundRobin"
-      },
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
@@ -85,6 +114,10 @@
         {
           "Host": "localhost",
           "Port": 5175
+        },
+        {
+          "Host": "localhost",
+          "Port": 5176
         }
       ],
       "UpstreamPathTemplate": "/orders/all",
@@ -92,6 +125,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
@@ -101,6 +137,10 @@
         {
           "Host": "localhost",
           "Port": 5158
+        },
+        {
+          "Host": "localhost",
+          "Port": 5159
         }
       ],
       "UpstreamPathTemplate": "/products/Add",
@@ -108,6 +148,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
@@ -117,10 +160,17 @@
         {
           "Host": "localhost",
           "Port": 5158
+        },
+        {
+          "Host": "localhost",
+          "Port": 5159
         }
       ],
       "UpstreamPathTemplate": "/products/get-products",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/wallet/create-wallet",
@@ -129,6 +179,10 @@
         {
           "Host": "localhost",
           "Port": 5089
+        },
+        {
+          "Host": "localhost",
+          "Port": 5090
         }
       ],
       "UpstreamPathTemplate": "/wallet/create-wallet",
@@ -136,6 +190,9 @@
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     },
     {
@@ -145,13 +202,20 @@
         {
           "Host": "localhost",
           "Port": 5089
+        },
+        {
+          "Host": "localhost",
+          "Port": 5090
         }
       ],
       "UpstreamPathTemplate": "/wallet/reduce-balance",
-      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamHttpMethod": [ "POST" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []
+      },
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
       }
     }
   ],
