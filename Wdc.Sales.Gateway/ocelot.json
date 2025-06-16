@@ -98,7 +98,7 @@
         }
       ],
       "UpstreamPathTemplate": "/orders/{orderId}/cancel",
-      "UpstreamHttpMethod": [ "POST" ],
+      "UpstreamHttpMethod": [ "DELETE" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "JwtBearer",
         "AllowedScopes": []

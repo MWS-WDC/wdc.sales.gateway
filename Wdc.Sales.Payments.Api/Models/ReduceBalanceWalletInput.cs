@@ -3,6 +3,7 @@
     public class ReduceBalanceWalletInput
     {
         public required string LocationName { get; init; }
+        public string OrderId { get; init; } = string.Empty;
         public List<ReduceBalanceWallet> ReduceBalanceWallets { get; init; } = [];
     }
 
