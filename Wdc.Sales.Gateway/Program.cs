@@ -19,11 +19,8 @@ namespace Wdc.Sales.Gateway
                 .AddEnvironmentVariables()
                 .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-            // إضافة خدمات CORS
             builder.Services.AddCors(options =>
             {
-                // نصيحة: تجنب استخدام AllowAnyOrigin() في بيئة الإنتاج قدر الإمكان.
-                // إذا كنت مضطرًا لذلك مؤقتًا للاختبار، يمكنك تعريف سياسة أخرى:
                 options.AddPolicy(name: "AllowAllOrigins",
                                   policy =>
                                   {

@@ -37,16 +37,16 @@ namespace Wdc.Sales.Products.Api.Controllers
 
             if (products.Count() < 0)
             {
-                products.Add(Product.Add(id: "apple", price: 100, quantity: 10));
+                products.Add(Product.Add(id: "Natural Honey", price: 100, quantity: 10));
 
-                products.Add(Product.Add(id: "banana", price: 100, quantity: 10));
+                products.Add(Product.Add(id: "Sidr Honey", price: 100, quantity: 10));
 
-                products.Add(Product.Add(id: "strawberry", price: 100, quantity: 10));
+                products.Add(Product.Add(id: "Manuka Honey", price: 100, quantity: 10));
+
+                await context.Products.AddRangeAsync(products);
+
+                await context.SaveChangesAsync(cancellationToken);
             }
-
-            await context.Products.AddRangeAsync(products);
-
-            await context.SaveChangesAsync(cancellationToken);
 
             return Ok(products);
         }
