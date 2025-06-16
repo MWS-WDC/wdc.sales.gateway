@@ -15,7 +15,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
     public class OrdersController(OrdersDbContext context) : ControllerBase
     {
         [HttpPost("create")]
-        public async Task<ActionResult<CreateOrderOutPutModel>> CreateOrderAsync([FromBody] CreateOrderInputModel input)
+        public async Task<ActionResult<CreateOrderOutputModel>> CreateOrderAsync([FromBody] CreateOrderInputModel input)
         {
             Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
 
@@ -40,7 +40,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
 
             await context.SaveChangesAsync();
 
-            return Ok(new CreateOrderOutPutModel { Id = order.Id });
+            return Ok(new CreateOrderOutputModel { Id = order.Id });
         }
 
         [HttpPost("{orderId}/cancel")]
@@ -62,7 +62,8 @@ namespace Wdc.Sales.Orders.Api.Controllers
             if (order.Status != OrderStatus.Pending)
                 return BadRequest("Only pending orders can be cancelled.");
 
-            order.Status = OrderStatus.Cancelled;
+            context.Orders.Remove(order);
+
             await context.SaveChangesAsync();
 
             return Ok(new { message = "Order cancelled." });
@@ -86,12 +87,12 @@ namespace Wdc.Sales.Orders.Api.Controllers
 
             GetAllOrdersOutput result = new GetAllOrdersOutput
             {
-                getAllOrderOutPutModels = orders.Select(o => new GetAllOrderOutPutModel
+                getAllOrderOutPutModels = orders.Select(o => new GetAllOrdersOutputModel
                 {
                     OrderId = o.Id,
                     CreatedAt = o.CreatedAt,
                     Status = nameof(o.Status),
-                    orderItemOutPutModels = o.Items.Select(x => new OrderItemOutPutModel { ProductId = x.ProductId, Quantity = x.Quantity })
+                    orderItemOutputModels = o.Items.Select(x => new OrderItemOutputModel { ProductId = x.ProductId, Quantity = x.Quantity })
                 })
             };
 

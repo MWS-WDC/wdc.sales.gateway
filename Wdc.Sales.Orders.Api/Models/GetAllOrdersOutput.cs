@@ -2,20 +2,20 @@
 {
     public class GetAllOrdersOutput
     {
-        public IEnumerable<GetAllOrderOutPutModel> getAllOrderOutPutModels { get; init; } = [];
+        public IEnumerable<GetAllOrdersOutputModel> getAllOrderOutPutModels { get; init; } = [];
     }
 
 
-    public class GetAllOrderOutPutModel
+    public class GetAllOrdersOutputModel
     {
         public required string OrderId { get; init; }
         public required string Status { get; init; }
         public required DateTime CreatedAt { get; init; }
 
-        public IEnumerable<OrderItemOutPutModel> orderItemOutPutModels { get; init; } = [];
+        public IEnumerable<OrderItemOutputModel> orderItemOutputModels { get; init; } = [];
     }
 
-    public class OrderItemOutPutModel
+    public class OrderItemOutputModel
     {
         public required string ProductId { get; init; }
         public required int Quantity { get; init; }
