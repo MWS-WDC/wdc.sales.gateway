@@ -43,7 +43,7 @@ namespace Wdc.Sales.Orders.Api.Controllers
             return Ok(new CreateOrderOutputModel { Id = order.Id });
         }
 
-        [HttpPost("{orderId}/cancel")]
+        [HttpDelete("{orderId}/cancel")]
         public async Task<IActionResult> CancelOrderAsync(string orderId)
         {
             Claim? userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier) ?? User.FindFirst("sub");
