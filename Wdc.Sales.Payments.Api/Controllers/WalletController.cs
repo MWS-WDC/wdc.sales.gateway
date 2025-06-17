@@ -16,7 +16,8 @@ namespace Wdc.Sales.Payments.Api.Controllers
     [Authorize]
     public class WalletController(
         AppDbContext context,
-        ServiceBusToProductPublisher serviceBusPublisher
+        ServiceBusToProductPublisher serviceBusPublisher,
+        ServiceBusToOrderPublisher serviceBusToOrderPublisher
     ) : ControllerBase
     {
         [HttpPost("create-wallet")]
@@ -76,6 +77,15 @@ namespace Wdc.Sales.Payments.Api.Controllers
                 Version = 1
             });
 
+            await serviceBusToOrderPublisher.PublishEventAsync(new OrderDeleted
+            {
+                AggregateId = input.OrderId,
+                Sequence = 1,
+                DateTime = DateTime.UtcNow,
+                UserId = userId.ToString(),
+                Version = 1,
+                Data = new()
+            });
             return Ok($"Reduce balance Wallet successfully ** new balance: {wallet?.Balance} ");
         }
     }

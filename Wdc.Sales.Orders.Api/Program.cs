@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using Wdc.Sales.Orders.Api.EventHandlers;
 using Wdc.Sales.Orders.Api.Persistence;
+using Wdc.Sales.Orders.Api.Persistence.ServiceBus;
 
 namespace Wdc.Sales.Orders.Api
 {
@@ -31,6 +33,11 @@ namespace Wdc.Sales.Orders.Api
                 });
 
             builder.Services.AddAuthorization();
+
+            builder.Services.AddServiceBus(builder.Configuration);
+
+            builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<OrderDeletedHandler>());
+
             builder.Services.AddDbContext<OrdersDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
