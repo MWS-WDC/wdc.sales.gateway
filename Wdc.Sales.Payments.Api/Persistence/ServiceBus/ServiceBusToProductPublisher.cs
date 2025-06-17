@@ -6,7 +6,7 @@ using Wdc.Sales.Payments.Api.abstracts;
 
 namespace Wdc.Sales.Payments.Api.Persistence.ServiceBus
 {
-    public class ServiceBusPublisher
+    public class ServiceBusToProductPublisher
     {
         protected readonly ServiceBusSender _sender;
 
@@ -16,9 +16,9 @@ namespace Wdc.Sales.Payments.Api.Persistence.ServiceBus
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
-        public ServiceBusPublisher(IOptions<ServiceBusOptions> options, IConfiguration configuration)
+        public ServiceBusToProductPublisher(IOptions<ServiceBusToProductOptions> options, IConfiguration configuration)
         {
-            ServiceBusClient client = new(configuration.GetConnectionString("ServiceBus"));
+            ServiceBusClient client = new(configuration.GetConnectionString("ServiceBusToProduct"));
 
             _sender = client.CreateSender(options.Value.TopicName);
         }

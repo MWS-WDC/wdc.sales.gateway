@@ -18,6 +18,7 @@ namespace Wdc.Sales.Payments.Api.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sequence = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

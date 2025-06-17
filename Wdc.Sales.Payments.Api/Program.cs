@@ -31,10 +31,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddHostedService<DatabaseMigrationHostedService>();
 
-builder.Services.AddSingleton<ServiceBusPublisher>();
+builder.Services.AddSingleton<ServiceBusToProductPublisher>();
 
-builder.Services.AddOptions<ServiceBusOptions>()
-    .BindConfiguration(ServiceBusOptions.ServiceBus)
+builder.Services.AddSingleton<ServiceBusToOrderPublisher>();
+
+builder.Services.AddOptions<ServiceBusToProductOptions>()
+    .BindConfiguration(ServiceBusToProductOptions.ServiceBusToProduct)
+    .ValidateDataAnnotations()
+    .ValidateOnStart();
+
+builder.Services.AddOptions<ServiceBusToOrderOptions>()
+    .BindConfiguration(ServiceBusToOrderOptions.ServiceBusToOrder)
     .ValidateDataAnnotations()
     .ValidateOnStart();
 

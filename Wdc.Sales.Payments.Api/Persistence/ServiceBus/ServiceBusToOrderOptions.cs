@@ -2,10 +2,10 @@
 
 namespace Wdc.Sales.Payments.Api.Persistence.ServiceBus;
 
-public class ServiceBusOptions
+public class ServiceBusToOrderOptions
 {
 
-    public const string ServiceBus = "ServiceBus";
+    public const string ServiceBusToOrder = "ServiceBusToOrder";
 
     [Required]
     public string TopicName { get; init; } = string.Empty;

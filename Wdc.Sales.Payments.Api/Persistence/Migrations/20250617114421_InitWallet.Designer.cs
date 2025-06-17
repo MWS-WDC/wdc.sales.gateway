@@ -12,7 +12,7 @@ using Wdc.Sales.Payments.Api.Persistence;
 namespace Wdc.Sales.Payments.Api.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250602125427_InitWallet")]
+    [Migration("20250617114421_InitWallet")]
     partial class InitWallet
     {
         /// <inheritdoc />
@@ -33,6 +33,10 @@ namespace Wdc.Sales.Payments.Api.Persistence.Migrations
 
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("LocationName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");

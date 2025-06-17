@@ -16,7 +16,7 @@ namespace Wdc.Sales.Payments.Api.Controllers
     [Authorize]
     public class WalletController(
         AppDbContext context,
-        ServiceBusPublisher serviceBusPublisher
+        ServiceBusToProductPublisher serviceBusPublisher
     ) : ControllerBase
     {
         [HttpPost("create-wallet")]
