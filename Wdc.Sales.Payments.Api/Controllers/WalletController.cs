@@ -63,7 +63,7 @@ namespace Wdc.Sales.Payments.Api.Controllers
             }
             else
             {
-                wallet.ReduceBalance(input.ReduceBalanceWallets.Sum(x => x.Value * x.Quantity), input.LocationName);
+                wallet.ReduceBalance(input.ReduceBalanceWallets.Sum(x => 100 * x.Quantity), input.LocationName);
             }
             await context.SaveChangesAsync(cancellationToken);
             ReduceBalanceWallet? reduceBalanceWallet = input.ReduceBalanceWallets.FirstOrDefault();

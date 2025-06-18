@@ -10,7 +10,6 @@
     public class ReduceBalanceWallet
     {
         public required string ProductId { get; init; }
-        public required decimal Value { get; init; }
         public required long Quantity { get; init; }
     }
 }
